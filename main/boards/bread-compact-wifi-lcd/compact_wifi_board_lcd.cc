@@ -114,13 +114,24 @@ private:
 
         esp_lcd_panel_init(panel);
         esp_lcd_panel_invert_color(panel, DISPLAY_INVERT_COLOR);
+#if CONFIG_USE_EMOTE_MESSAGE_STYLE && defined(CONFIG_LCD_ST7789_240X320)
+        // The emote assets are authored for a 320x240 canvas. Rotate this native
+        // 240x320 ST7789 panel so the renderer and EAF assets share that canvas.
+        esp_lcd_panel_swap_xy(panel, true);
+        esp_lcd_panel_mirror(panel, true, false);
+#else
         esp_lcd_panel_swap_xy(panel, DISPLAY_SWAP_XY);
         esp_lcd_panel_mirror(panel, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
+#endif
 #ifdef  LCD_TYPE_GC9A01_SERIAL
         panel_config.vendor_config = &gc9107_vendor_config;
 #endif
 #if CONFIG_USE_EMOTE_MESSAGE_STYLE
+#if defined(CONFIG_LCD_ST7789_240X320)
+        display_ = new emote::EmoteDisplay(panel, panel_io, 320, 240);
+#else
         display_ = new emote::EmoteDisplay(panel, panel_io, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+#endif
 #else
         display_ = new SpiLcdDisplay(panel_io, panel,
                                     DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);

@@ -122,19 +122,8 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
     };
     esp_lcd_panel_io_register_event_callbacks(panel_io, &cbs, emote_handle);
 
-    const emote_data_t data = {
-        .type = EMOTE_SOURCE_PARTITION,
-        .source = {
-            .partition_label = "assets",
-        },
-        .flags = {
-            .mmap_enable = true,
-        },
-    };
-    esp_err_t ret = emote_mount_and_load_assets(emote_handle, &data);
-    if (ret != ESP_OK) {
-        ESP_LOGW(TAG, "Failed to load emote assets: %s", esp_err_to_name(ret));
-    }
+    // Assets owns the partition mapping and loads it during application activation.
+    // Mounting here as well can invalidate that mapping while the render task is using it.
 
     return emote_handle;
 }

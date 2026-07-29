@@ -448,6 +448,8 @@ void Assets::EmoteStrategy::UnApplyPartition(Assets* assets) {
     auto display = Board::GetInstance().GetDisplay();
     auto* emote_display = dynamic_cast<emote::EmoteDisplay*>(display);
     if (emote_display && emote_display->GetEmoteHandle() != nullptr) {
+        // Remove renderer objects before releasing their memory-mapped asset data.
+        emote_unload_assets(emote_display->GetEmoteHandle());
         emote_unmount_assets(emote_display->GetEmoteHandle());
     }
     (void)assets;  // Unused parameter
