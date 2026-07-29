@@ -7,7 +7,6 @@
 #include <tuple>
 #include <algorithm>
 #include <cinttypes>
-#include <vector>
 
 // Standard C headers
 #include <sys/time.h>
@@ -121,19 +120,6 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
 EmoteDisplay::EmoteDisplay(const esp_lcd_panel_handle_t panel, const esp_lcd_panel_io_handle_t panel_io,
                            const int width, const int height)
 {
-    ESP_LOGI(TAG, "Turning display on");
-    esp_err_t err = esp_lcd_panel_disp_on_off(panel, true);
-    if (err == ESP_ERR_NOT_SUPPORTED) {
-        ESP_LOGW(TAG, "Panel does not support disp_on_off; assuming ON");
-    } else {
-        ESP_ERROR_CHECK(err);
-    }
-
-    std::vector<uint16_t> buffer(width, 0x0000);
-    for (int y = 0; y < height; y++) {
-        esp_lcd_panel_draw_bitmap(panel, 0, y, width, y + 1, buffer.data());
-    }
-
     emote_handle_ = InitializeEmote(panel, width, height);
 
     const esp_lcd_panel_io_callbacks_t cbs = {
