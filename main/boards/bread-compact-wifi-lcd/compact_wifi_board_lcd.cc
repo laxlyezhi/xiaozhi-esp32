@@ -120,7 +120,6 @@ private:
         panel_config.vendor_config = &gc9107_vendor_config;
 #endif
 #if CONFIG_USE_EMOTE_MESSAGE_STYLE
-        esp_lcd_panel_disp_on_off(panel, true);
         display_ = new emote::EmoteDisplay(panel, panel_io, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 #else
         display_ = new SpiLcdDisplay(panel_io, panel,
