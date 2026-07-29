@@ -66,7 +66,11 @@ static void OnFlushCallback(int x_start, int y_start, int x_end, int y_end, cons
 {
     esp_lcd_panel_handle_t panel = (esp_lcd_panel_handle_t)emote_get_user_data(handle);
     if (panel != nullptr) {
-        esp_lcd_panel_draw_bitmap(panel, x_start, y_start, x_end, y_end, data);
+        esp_err_t ret = esp_lcd_panel_draw_bitmap(panel, x_start, y_start, x_end, y_end, data);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to flush emote frame: %s", esp_err_to_name(ret));
+            emote_notify_flush_finished(handle);
+        }
     }
 }
 
@@ -86,7 +90,7 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
         .flags = {
             .swap = true,
             .double_buffer = true,
-            .buff_dma = false,
+            .buff_dma = true,
         },
         .gfx_emote = {
             .h_res = width,
@@ -142,6 +146,14 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
 EmoteDisplay::EmoteDisplay(const esp_lcd_panel_handle_t panel, const esp_lcd_panel_io_handle_t panel_io,
                            const int width, const int height)
 {
+    ESP_LOGI(TAG, "Turning display on");
+    esp_err_t ret = esp_lcd_panel_disp_on_off(panel, true);
+    if (ret == ESP_ERR_NOT_SUPPORTED) {
+        ESP_LOGW(TAG, "Panel does not support disp_on_off; assuming ON");
+    } else if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to turn display on: %s", esp_err_to_name(ret));
+    }
+
     emote_handle_ = InitializeEmote(panel, panel_io, width, height);
 }
 
