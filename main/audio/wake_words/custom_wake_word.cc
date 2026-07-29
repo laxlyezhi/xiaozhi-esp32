@@ -86,17 +86,31 @@ bool CustomWakeWord::Initialize(AudioCodec* codec, srmodel_list_t* models_list) 
     codec_ = codec;
     commands_.clear();
 
+#ifdef CONFIG_CUSTOM_WAKE_WORD
+    auto add_configured_wake_word = [this]() {
+        threshold_ = CONFIG_CUSTOM_WAKE_WORD_THRESHOLD / 100.0f;
+        commands_.push_back({CONFIG_CUSTOM_WAKE_WORD, CONFIG_CUSTOM_WAKE_WORD_DISPLAY, "wake"});
+        ESP_LOGI(TAG, "Configured custom wake word: %s (%s), threshold=%0.2f",
+                 CONFIG_CUSTOM_WAKE_WORD, CONFIG_CUSTOM_WAKE_WORD_DISPLAY, threshold_);
+    };
+#endif
+
     if (models_list == nullptr) {
         language_ = "cn";
         models_ = esp_srmodel_init("model");
         owns_models_ = models_ != nullptr;
 #ifdef CONFIG_CUSTOM_WAKE_WORD
-        threshold_ = CONFIG_CUSTOM_WAKE_WORD_THRESHOLD / 100.0f;
-        commands_.push_back({CONFIG_CUSTOM_WAKE_WORD, CONFIG_CUSTOM_WAKE_WORD_DISPLAY, "wake"});
+        add_configured_wake_word();
 #endif
     } else {
         models_ = models_list;
         ParseWakenetModelConfig();
+#ifdef CONFIG_CUSTOM_WAKE_WORD
+        if (commands_.empty()) {
+            ESP_LOGW(TAG, "No custom wake word commands found in assets, using menuconfig value");
+            add_configured_wake_word();
+        }
+#endif
     }
 
     if (models_ == nullptr || models_->num == -1) {

@@ -953,8 +953,8 @@ void Application::HandleStateChangedEvent() {
 
             if (listening_mode_ != kListeningModeRealtime) {
                 audio_service_.EnableVoiceProcessing(false);
-                // Only AFE wake word can be detected in speaking mode
-                audio_service_.EnableWakeWordDetection(audio_service_.IsAfeWakeWord());
+                // Allow wake-word barge-in while the assistant is speaking.
+                audio_service_.EnableWakeWordDetection(audio_service_.HasWakeWordDetection());
             }
             audio_service_.ResetDecoder();
             break;

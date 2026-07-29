@@ -55,6 +55,18 @@ source /path/to/esp-idf/export.sh
 idf.py --version
 ```
 
+On this workstation, the user's terminal shortcut is:
+
+```sh
+get-idf
+```
+
+It currently resolves to ESP-IDF v5.5.4. From Codex/non-interactive shells, use:
+
+```sh
+zsh -ic 'get-idf && idf.py <command>'
+```
+
 ```sh
 # Discover exact board and variant names
 python3 scripts/build.py --list-boards

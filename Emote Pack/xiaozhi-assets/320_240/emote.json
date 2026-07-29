@@ -1,0 +1,278 @@
+[
+    {
+        "emote": "happy",
+        "src": "smile_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "laughing",
+        "src": "laugh_05s_10.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "funny",
+        "src": "laugh_05s_10.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "loving",
+        "src": "yummy_20_s.eaf",
+        "loop": false,
+        "fps": 25
+    },
+    {
+        "emote": "embarrassed",
+        "src": "shy_20s_40s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "confident",
+        "src": "confident_08.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "delicious",
+        "src": "yummy_20_s.eaf",
+        "loop": false,
+        "fps": 25
+    },
+    {
+        "emote": "sad",
+        "src": "sad_05s15s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "crying",
+        "src": "cry_10s_20s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "sleepy",
+        "src": "asleep_215s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "silly",
+        "src": "shy_20s_40s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "angry",
+        "src": "angry_20s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "surprised",
+        "src": "shocked_05s_.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "shocked",
+        "src": "shocked_05s_.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "thinking",
+        "src": "ponder_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "winking",
+        "src": "smile_static.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "relaxed",
+        "src": "smile_static.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "confused",
+        "src": "question_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "neutral",
+        "src": "smile_static.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "idle",
+        "src": "smile_static.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "microchip_ai",
+        "src": "smile_static.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "cool",
+        "src": "confident_08.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "kissy",
+        "src": "yummy_20_s.eaf",
+        "loop": false,
+        "fps": 25
+    },
+    {
+        "emote": "smile_05s",
+        "src": "smile_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "yummy_20_s",
+        "src": "yummy_20_s.eaf",
+        "loop": false,
+        "fps": 25
+    },
+    {
+        "emote": "yawn_20s",
+        "src": "yawn_20s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "snigger_10s",
+        "src": "snigger_10s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "smile_static",
+        "src": "smile_static.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "sigh_20s_40s",
+        "src": "sigh_20s_40s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "shy_20s_40s",
+        "src": "shy_20s_40s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "shocked_05s_",
+        "src": "shocked_05s_.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "sad_05s15s",
+        "src": "sad_05s15s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "question_05s",
+        "src": "question_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "ponder_05s",
+        "src": "ponder_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "panic_05s_15",
+        "src": "panic_05s_15.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "mute_05s",
+        "src": "mute_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "music_25s",
+        "src": "music_25s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "mock_05s",
+        "src": "mock_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "leisure_05s_",
+        "src": "leisure_05s_.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "laugh_05s_10",
+        "src": "laugh_05s_10.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "investigate_",
+        "src": "investigate_.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "cry_10s_20s",
+        "src": "cry_10s_20s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "confident_08",
+        "src": "confident_08.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "badminton_12",
+        "src": "badminton_12.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "asleep_215s",
+        "src": "asleep_215s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
+        "emote": "angry_20s",
+        "src": "angry_20s.eaf",
+        "loop": true,
+        "fps": 25
+    }
+]

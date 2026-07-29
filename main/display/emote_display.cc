@@ -7,14 +7,17 @@
 #include <tuple>
 #include <algorithm>
 #include <cinttypes>
+#include <vector>
 
 // Standard C headers
 #include <sys/time.h>
 #include <time.h>
 
 // ESP-IDF headers
+#include <esp_err.h>
 #include <esp_log.h>
 #include <esp_lcd_panel_io.h>
+#include <esp_lcd_panel_ops.h>
 #include <esp_timer.h>
 #include <lvgl.h>
 
@@ -118,6 +121,19 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
 EmoteDisplay::EmoteDisplay(const esp_lcd_panel_handle_t panel, const esp_lcd_panel_io_handle_t panel_io,
                            const int width, const int height)
 {
+    ESP_LOGI(TAG, "Turning display on");
+    esp_err_t err = esp_lcd_panel_disp_on_off(panel, true);
+    if (err == ESP_ERR_NOT_SUPPORTED) {
+        ESP_LOGW(TAG, "Panel does not support disp_on_off; assuming ON");
+    } else {
+        ESP_ERROR_CHECK(err);
+    }
+
+    std::vector<uint16_t> buffer(width, 0x0000);
+    for (int y = 0; y < height; y++) {
+        esp_lcd_panel_draw_bitmap(panel, 0, y, width, y + 1, buffer.data());
+    }
+
     emote_handle_ = InitializeEmote(panel, width, height);
 
     const esp_lcd_panel_io_callbacks_t cbs = {
@@ -138,7 +154,11 @@ void EmoteDisplay::SetEmotion(const char* const emotion)
 {
     ESP_LOGI(TAG, "SetEmotion: %s", emotion);
     if (emote_handle_ && emotion && strlen(emotion) > 0) {
-        emote_set_anim_emoji(emote_handle_, emotion);
+        const char* emote_name = std::strcmp(emotion, "microchip_ai") == 0 ? "neutral" : emotion;
+        if (emote_set_anim_emoji(emote_handle_, emote_name) != ESP_OK) {
+            ESP_LOGW(TAG, "Emotion '%s' is not available, falling back to neutral", emote_name);
+            emote_set_anim_emoji(emote_handle_, "neutral");
+        }
     }
 }
 

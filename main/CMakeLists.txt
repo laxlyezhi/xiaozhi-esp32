@@ -59,6 +59,7 @@ list(APPEND SOURCES
     "boards/common/knob.cc"
     "boards/common/power_save_timer.cc"
     "boards/common/press_to_talk_mcp_tool.cc"
+    "boards/common/reminder_mcp_tool.cc"
     "boards/common/sleep_timer.cc"
     "boards/common/sy6970.cc"
     "boards/common/system_reset.cc"
@@ -1318,6 +1319,14 @@ endfunction()
 partition_table_get_partition_info(size "--partition-name assets" "size")
 partition_table_get_partition_info(offset "--partition-name assets" "offset")
 if ("${size}" AND "${offset}")
+    if(CONFIG_USE_EMOTE_MESSAGE_STYLE AND CONFIG_BOARD_TYPE_BREAD_COMPACT_WIFI_LCD)
+        set(XIAOZHI_EMOTE_EXTERNAL_PATH "${PROJECT_DIR}/Emote Pack/xiaozhi-assets")
+        if(EXISTS "${XIAOZHI_EMOTE_EXTERNAL_PATH}")
+            set(EMOTE_EXTERNAL_PATH "${XIAOZHI_EMOTE_EXTERNAL_PATH}")
+            message(STATUS "Using external Xiaozhi emote assets: ${EMOTE_EXTERNAL_PATH}")
+        endif()
+    endif()
+
     # Flash assets based on configuration
     if(CONFIG_FLASH_DEFAULT_ASSETS)
         # Build default assets based on configuration

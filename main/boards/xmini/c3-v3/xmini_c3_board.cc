@@ -10,6 +10,7 @@
 #include "power_save_timer.h"
 #include "adc_battery_monitor.h"
 #include "press_to_talk_mcp_tool.h"
+#include "reminder_mcp_tool.h"
 
 #include <wifi_manager.h>
 #include <esp_log.h>
@@ -30,6 +31,7 @@ private:
     PowerSaveTimer* power_save_timer_ = nullptr;
     AdcBatteryMonitor* adc_battery_monitor_ = nullptr;
     PressToTalkMcpTool* press_to_talk_tool_ = nullptr;
+    ReminderMcpTool* reminder_tool_ = nullptr;
 
     void InitializePowerManager() {
         adc_battery_monitor_ = new AdcBatteryMonitor(ADC_UNIT_1, ADC_CHANNEL_3, 100000, 100000, GPIO_NUM_12);
@@ -155,6 +157,8 @@ private:
     void InitializeTools() {
         press_to_talk_tool_ = new PressToTalkMcpTool();
         press_to_talk_tool_->Initialize();
+        reminder_tool_ = new ReminderMcpTool();
+        reminder_tool_->Initialize();
     }
 
 public:

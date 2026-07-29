@@ -121,6 +121,7 @@ public:
     bool IsPlaybackIdle();
     bool IsWakeWordRunning() const { return xEventGroupGetBits(event_group_) & AS_EVENT_WAKE_WORD_RUNNING; }
     bool IsAudioProcessorRunning() const { return xEventGroupGetBits(event_group_) & AS_EVENT_AUDIO_PROCESSOR_RUNNING; }
+    bool HasWakeWordDetection() const { return audio_engine_ != nullptr && audio_engine_->HasWakeWord(); }
     bool IsAfeWakeWord();
 
     void EnableWakeWordDetection(bool enable);
