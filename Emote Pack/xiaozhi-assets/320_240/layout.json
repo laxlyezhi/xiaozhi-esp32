@@ -2,11 +2,11 @@
   {
     "type": "anim",
     "name": "eye_anim",
-    "align": "GFX_ALIGN_LEFT_MID",
-    "x": 10,
-    "y": 30,
+    "align": "GFX_ALIGN_CENTER",
+    "x": 0,
+    "y": 0,
     "anim": {
-      "mirror": "auto"
+      "mirror": "false"
     }
   },
   {
