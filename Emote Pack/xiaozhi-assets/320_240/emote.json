@@ -90,6 +90,12 @@
         "fps": 25
     },
     {
+        "emote": "gear",
+        "src": "ponder_05s.eaf",
+        "loop": true,
+        "fps": 25
+    },
+    {
         "emote": "winking",
         "src": "smile_static.eaf",
         "loop": true,

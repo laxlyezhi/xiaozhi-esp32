@@ -28,6 +28,7 @@
 #include "assets/lang_config.h"
 #include "assets.h"
 #include "board.h"
+#include "core/gfx_log.h"
 #include "gfx.h"
 #include "expression_emote.h"
 
@@ -73,9 +74,10 @@ static void OnFlushCallback(int x_start, int y_start, int x_end, int y_end, cons
 // Graphics Initialization Functions
 // ============================================================================
 
-static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const int width, const int height)
+static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const esp_lcd_panel_io_handle_t panel_io,
+                                      const int width, const int height)
 {
-    if (!panel) {
+    if (!panel || !panel_io) {
         ESP_LOGE(TAG, "Invalid panel");
         return nullptr;
     }
@@ -104,10 +106,30 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
         .user_data = (void*)panel,
     };
 
+    gfx_log_set_level_all(GFX_LOG_LEVEL_NONE);
     emote_handle_t emote_handle = emote_init(&emote_cfg);
     if (!emote_handle) {
         ESP_LOGE(TAG, "Failed to initialize emote");
         return nullptr;
+    }
+
+    const esp_lcd_panel_io_callbacks_t cbs = {
+        .on_color_trans_done = OnFlushIoReady,
+    };
+    esp_lcd_panel_io_register_event_callbacks(panel_io, &cbs, emote_handle);
+
+    const emote_data_t data = {
+        .type = EMOTE_SOURCE_PARTITION,
+        .source = {
+            .partition_label = "assets",
+        },
+        .flags = {
+            .mmap_enable = true,
+        },
+    };
+    esp_err_t ret = emote_mount_and_load_assets(emote_handle, &data);
+    if (ret != ESP_OK) {
+        ESP_LOGW(TAG, "Failed to load emote assets: %s", esp_err_to_name(ret));
     }
 
     return emote_handle;
@@ -120,12 +142,7 @@ static emote_handle_t InitializeEmote(const esp_lcd_panel_handle_t panel, const 
 EmoteDisplay::EmoteDisplay(const esp_lcd_panel_handle_t panel, const esp_lcd_panel_io_handle_t panel_io,
                            const int width, const int height)
 {
-    emote_handle_ = InitializeEmote(panel, width, height);
-
-    const esp_lcd_panel_io_callbacks_t cbs = {
-        .on_color_trans_done = OnFlushIoReady,
-    };
-    esp_lcd_panel_io_register_event_callbacks(panel_io, &cbs, emote_handle_);
+    emote_handle_ = InitializeEmote(panel, panel_io, width, height);
 }
 
 EmoteDisplay::~EmoteDisplay()
