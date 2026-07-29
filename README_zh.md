@@ -1,5 +1,7 @@
 # An MCP-based Chatbot
 
+ 输入 get-idf 即可进入开发环境
+
 （中文 | [English](README.md) | [日本語](README_ja.md)）
 
 ## 介绍
